@@ -53,6 +53,7 @@
 #include "lib/Dialect/TensorExt/Transforms/Passes.h"
 #include "lib/Dialect/TfheRust/IR/TfheRustDialect.h"
 #include "lib/Dialect/TfheRustBool/IR/TfheRustBoolDialect.h"
+#include "lib/Dialect/VN/IR/VNDialect.h"
 #include "lib/Pipelines/ArithmeticPipelineRegistration.h"
 #include "lib/Pipelines/BooleanPipelineRegistration.h"
 #include "lib/Pipelines/PipelineRegistration.h"
@@ -180,6 +181,7 @@ int main(int argc, char** argv) {
   registry.insert<tfhe_rust::TfheRustDialect>();
   registry.insert<tfhe_rust_bool::TfheRustBoolDialect>();
   registry.insert<math_ext::MathExtDialect>();
+  registry.insert<vn::VNDialect>();
 
   // Add expected MLIR dialects to the registry.
   registry.insert<LLVM::LLVMDialect>();

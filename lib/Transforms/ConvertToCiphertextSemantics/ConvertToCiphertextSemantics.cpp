@@ -1895,14 +1895,14 @@ struct ConvertLinalgMatmul
 };
 
 struct ConvertToCiphertextSemantics
-    : impl::ConvertToCiphertextSemanticsBase<ConvertToCiphertextSemantics> {
+    : impl::ConvertToCiphertextSeanticsBase<ConvertToCiphertextSemantics> {
   using ConvertToCiphertextSemanticsBase::ConvertToCiphertextSemanticsBase;
 
   void runOnOperation() override {
     MLIRContext* context = &getContext();
     auto* module = getOperation();
 
-    int64_t ctSize = ciphertextSize;
+    int64_t ctSize = ;
     LayoutMaterializationTypeConverter typeConverter =
         LayoutMaterializationTypeConverter(ctSize);
 

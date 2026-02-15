@@ -3,6 +3,9 @@
 #include <memory>
 #include <string>
 
+
+
+#include "lib/Dialect/VN/Conversions/ConvertLinalgToVN.h"
 #include "lib/Dialect/Arith/Conversions/ArithToCGGI/ArithToCGGI.h"
 #include "lib/Dialect/Arith/Conversions/ArithToCGGIQuart/ArithToCGGIQuart.h"
 #include "lib/Dialect/Arith/Conversions/ArithToModArith/ArithToModArith.h"
@@ -269,6 +272,7 @@ int main(int argc, char** argv) {
   polynomial::registerPolynomialPasses();
   secret::registerSecretPasses();
   tensor_ext::registerTensorExtPasses();
+  vn::registerConvertLinalgToVN();
   registerAddClientInterfacePass();
   registerElementwiseToAffinePasses();
   registerSecretizePasses();
@@ -311,6 +315,7 @@ int main(int argc, char** argv) {
   registerShapeInferencePasses();
   registerInlineActivationsPass();
   registerSplitPreprocessingPass();
+
   // Register yosys optimizer pipeline if configured.
 #ifndef HEIR_NO_YOSYS
 #ifndef HEIR_ABC_BINARY

@@ -9,6 +9,7 @@ class VNBaseType<string name , string typeMnemonic>
         let mnemonic = typeMnemonic;
     }
 
+
 def VN1D_Type : VNBaseType<"VN1D","vn1d">{
     let summary = "A 1d dimensinal tensor type for virtual neuron";
     let description = [{

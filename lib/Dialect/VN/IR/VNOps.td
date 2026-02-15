@@ -14,77 +14,56 @@ class VN_Op<string mnemonic, list<Trait>traits = []>
     }
 
 
-def VN_AddOp:VN_Op<"add", [Commutative, SameOperandsAndResultType]>{
-    let summary = "Elementwise addition of all data within VN";
-    let description =[{
-        Adds two virtual neuron (1D) elementwise
-    }];
 
-    let arguments = (ins
-    VN1D_Type : $lhs,
-    VN1D_Type : $rhs
-    );
-
-    let results = (outs
-        VN1D_Type:$result
-    );
-
-    let assemblyFormat = "$lhs `,` $rhs attr-dict `:`  functional-type(operands, $result)";
-
-
-}
-
-
-def VN_MulOp : VN_Op<"mul", [Commutative,  SameOperandsAndResultType]> {
+def VN_MulOp : VN_Op<"mul", [Commutative]> {
     let summary = "Elementwise multiplication of data within VN";
 
     let description = [{
-        Multiply two virtual neuron (1D) elementwise
+        Multiply two tensors elementwise with broadcasting support
     }];
 
 
   let arguments = (ins
-    VN1D_Type:$lhs,
-    VN1D_Type:$rhs
+    AnyTensor:$lhs,
+    AnyTensor:$rhs
   );
 
   let results = (outs
-    VN1D_Type:$result
+    AnyTensor:$result
   );
 
-  let assemblyFormat = "$lhs `,` $rhs attr-dict `:` functional-type(operands, $result)";
+  let assemblyFormat = "$lhs `,` $rhs attr-dict `:` `(` type($lhs) `,` type($rhs) `)` `->` type($result)";
 }
 
 
 
 def VN_ReduceOp:VN_Op<"reduce">{
 
-  let summary = "Virtual Neuron reduction";
+  let summary = "Virtual Neuron reduction - reduces tensor to scalar";
 
   let arguments = (ins
-    VN1D_Type:$input
+    AnyTensor:$input
   );
 
   let results = (outs
-    AnyType:$result
+    AnyFloat:$result
   );
 
-  let assemblyFormat = "$input attr-dict `:` qualified(type($input)) `->` qualified(type($result))";
+  let assemblyFormat = "$input attr-dict `:` type($input) `->` type($result)";
 
 }
 
 def VN_MergeOp : VN_Op<"merge"> {
-  let summary = "Merge two 1D tensors";
-
+  let summary = "Merge multiple scalar values into a tensor";
+  
   let arguments = (ins
-    VN1D_Type:$a,
-    VN1D_Type:$b
+    Variadic<AnyFloat>:$inputs
   );
-
+  
   let results = (outs
-    VN1D_Type:$result
+    AnyTensor:$result
   );
-
-  let assemblyFormat = "$a `,` $b attr-dict `:` functional-type(operands, $result)";
+  
+  let assemblyFormat = "$inputs attr-dict `:` functional-type(operands, $result)";
 }
 

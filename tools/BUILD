@@ -101,6 +101,8 @@ cc_binary(
         "@heir//lib/Dialect/TensorExt/Transforms:RotateAndReduce",
         "@heir//lib/Dialect/TfheRust/IR:Dialect",
         "@heir//lib/Dialect/TfheRustBool/IR:Dialect",
+        "@heir//lib/Dialect/VN/IR:Dialect",
+        "@heir//lib/Dialect/VN/Conversions:ConvertLinalgToVN",
         "@heir//lib/Pipelines:ArithmeticPipelineRegistration",
         "@heir//lib/Pipelines:BooleanPipelineRegistration",
         "@heir//lib/Pipelines:PipelineRegistration",

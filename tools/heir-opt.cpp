@@ -3,6 +3,9 @@
 #include <memory>
 #include <string>
 
+
+
+#include "lib/Dialect/VN/Conversions/ConvertLinalgToVN.h"
 #include "lib/Dialect/Arith/Conversions/ArithToCGGI/ArithToCGGI.h"
 #include "lib/Dialect/Arith/Conversions/ArithToCGGIQuart/ArithToCGGIQuart.h"
 #include "lib/Dialect/Arith/Conversions/ArithToModArith/ArithToModArith.h"
@@ -54,6 +57,7 @@
 #include "lib/Dialect/TensorExt/Transforms/Passes.h"
 #include "lib/Dialect/TfheRust/IR/TfheRustDialect.h"
 #include "lib/Dialect/TfheRustBool/IR/TfheRustBoolDialect.h"
+#include "lib/Dialect/VN/IR/VNDialect.h"
 #include "lib/Pipelines/ArithmeticPipelineRegistration.h"
 #include "lib/Pipelines/BooleanPipelineRegistration.h"
 #include "lib/Pipelines/PipelineRegistration.h"
@@ -184,6 +188,7 @@ int main(int argc, char** argv) {
   registry.insert<tfhe_rust::TfheRustDialect>();
   registry.insert<tfhe_rust_bool::TfheRustBoolDialect>();
   registry.insert<math_ext::MathExtDialect>();
+  registry.insert<vn::VNDialect>();
 
   // Add expected MLIR dialects to the registry.
   registry.insert<LLVM::LLVMDialect>();
@@ -272,6 +277,7 @@ int main(int argc, char** argv) {
   polynomial::registerPolynomialPasses();
   secret::registerSecretPasses();
   tensor_ext::registerTensorExtPasses();
+  vn::registerConvertLinalgToVN();
   registerAddClientInterfacePass();
   registerElementwiseToAffinePasses();
   registerSecretizePasses();
@@ -317,6 +323,7 @@ int main(int argc, char** argv) {
   registerShapeInferencePasses();
   registerInlineActivationsPass();
   registerSplitPreprocessingPass();
+
   // Register yosys optimizer pipeline if configured.
 #ifndef HEIR_NO_YOSYS
 #ifndef HEIR_ABC_BINARY

@@ -10,5 +10,7 @@ func.func @matmul(%arg0: tensor<16xf32> {secret.secret}, %arg1: tensor<16xf32>, 
   %6 = arith.addf %4, %5 : tensor<16xf32>
   %7 = tensor_ext.rotate %6, %c8 : tensor<16xf32>, index
   %8 = arith.addf %3, %7 : tensor<16xf32>
+
+  %9 = linalg.matmul %input , %
   return %8 : tensor<16xf32>
 }

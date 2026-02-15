@@ -1990,7 +1990,7 @@ struct ConvertToCiphertextSemantics
     MLIRContext* context = &getContext();
     auto* module = getOperation();
 
-    int64_t ctSize = ciphertextSize;
+    int64_t ctSize = ciphertextSize; ;
     LayoutMaterializationTypeConverter typeConverter =
         LayoutMaterializationTypeConverter(ctSize);
 
